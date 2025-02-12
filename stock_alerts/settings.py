@@ -58,12 +58,23 @@ TEMPLATES = [
 WSGI_APPLICATION = 'stock_alerts.wsgi.application'
 
 # Database settings
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'stock-alerts-db',
+        'USER': 'django_user',
+        'PASSWORD': os.getenv('dbsa-psswrd-0345'),
+        'HOST': '/cloudsql/fresh-generator-450702-r3:us-east4:stock-alerts-db',  # Replace with Cloud SQL connection name
     }
 }
+
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [

@@ -1,0 +1,58 @@
+gcloud services enable compute.googleapis.com
+gcloud services enable run.googleapis.com
+gcloud services enable sqladmin.googleapis.com
+
+
+gcloud sql instances create stock-alerts-db \
+    --database-version=POSTGRES_14 \
+    --tier=db-f1-micro \
+    --region=us-east4
+
+gcloud sql databases create django_db --instance=stock-alerts-db
+
+gcloud sql users create django_user \
+    --password=dbsa-psswrd-0345 \
+    --instance=stock-alerts-db
+
+gcloud sql instances describe stock-alerts-db | grep connectionName
+
+connectionName: fresh-generator-450702-r3:us-east4:stock-alerts-db
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'stock-alerts-db',
+        'USER': 'django_user',
+        'PASSWORD': os.getenv('dbsa-psswrd-0345'),
+        'HOST': '/cloudsql/fresh-generator-450702-r3:us-east4:stock-alerts-db',  # Replace with Cloud SQL connection name
+    }
+}
+
+gcloud builds submit --tag gcr.io/fresh-generator-450702-r3/django-app
+
+gcloud run deploy django-app \
+  --image gcr.io/fresh-generator-450702-r3/django-app \
+  --platform managed \
+  --region us-east4 \
+  --allow-unauthenticated
+
+  import os
+
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "HOST": "/cloudsql/fresh-generator-450702-r3:us-east4:stock-alerts-db",
+        "NAME": os.getenv("DB_NAME", "stock-alerts-db"),
+        "USER": os.getenv("DB_USER", "django_user"),
+        "PASSWORD": os.getenv("DB_PASSWORD", "dbsa-psswrd-0345"),
+        "PORT": "5432",
+        "OPTIONS": {
+            "sslmode": "disable",
+        },
+    }
+}
+
+gcloud run services update django-app --set-env-vars=DB_NAME=stock-alerts-db,DB_USER=django_user,DB_PASSWORD="dbsa-psswrd-0345" --region us-east4
+
+gcloud projects add-iam-policy-binding fresh-generator-450702-r3 --member=serviceAccount:208102352039-compute@developer.gserviceaccount.com --role=roles/cloudsql.client
