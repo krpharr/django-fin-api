@@ -28,6 +28,8 @@ def add_alert(request):
             price_type=data["price_type"],
             operator=data["operator"],
             threshold=data["threshold"],
+            trend=data["trend"],
+            level=data["level"],
             alert_text=data.get("alert_text", "No additional info")
         )
         return JsonResponse({"message": "Alert added", "id": alert.id}, status=201)
@@ -48,7 +50,7 @@ def delete_alert(request, alert_id):
 @require_http_methods(["GET"])
 def get_triggered_alerts(request):
     interval = request.GET.get("interval", "5m")  # Default to 5m
-    alerts = Alert.objects.all()
+    alerts = Alert.objects.all().all().order_by("ticker")
     triggered_alerts = []
 
     for alert in alerts:
@@ -63,7 +65,9 @@ def get_triggered_alerts(request):
                     "operator": alert.operator,
                     "threshold": alert.threshold,
                     "current_price": latest_price,
-                    "alert_text": alert.alert_text
+                    "alert_text": alert.alert_text,
+                    "trend": alert.trend,
+                    "level": alert.level
                 })
 
     return JsonResponse(triggered_alerts, safe=False)
