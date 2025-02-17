@@ -20,6 +20,7 @@ INSTALLED_APPS = [
     'rest_framework',  # Django REST framework
     'corsheaders',  # CORS handling
     'alerts',  # Your app
+    'fin',
 ]
 
 # Middleware
