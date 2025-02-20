@@ -2,3 +2,8 @@ gcloud compute scp  C:\Users\bassw\git-repository\testproj3\stock_alerts\alerts\
 
 START SERVER 
 nohup python manage.py runserver 0.0.0.0:8000 &
+
+
+gcloud compute scp  C:\Users\bassw\git-repository\testproj3\stock_alerts\fin\*.py instance-20250213-165846:django_project/fin/ --zone=us-east4-a
+
+gcloud compute scp  C:\Users\bassw\git-repository\testproj3\stock_alerts\fin\views.py instance-20250213-165846:django_project/fin/ --zone=us-east4-a

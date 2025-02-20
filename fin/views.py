@@ -32,23 +32,13 @@ def get_candles(request, ticker, timeframe, lookback):
     """
     try:
         # Fetch stock data from Yahoo Finance
-        stock = yf.download(ticker, interval=timeframe, period=lookback)
-
+        # stock = yf.download(ticker, interval=timeframe, period=lookback)
+        dat = yf.Ticker(ticker)
+        stock = dat.history(interval=timeframe, period=lookback)
+        stock = stock.sort_index()  # Ensure data is sorted by date
         # Ensure data is available
         if stock.empty:
             return JsonResponse({"error": "No data found for the given parameters"}, status=404)
-
-        # Reset index and rename columns to match JSON format
-        #stock.reset_index(inplace=True)
-        # stock.rename(columns={
-        #     "Date": "date",
-        #     "Open": "open_price",
-        #     "High": "high_price",
-        #     "Low": "low_price",
-        #     "Close": "close_price",
-        #     "Adj Close": "adj_close",
-        #     "Volume": "volume",
-        # }, inplace=True)
 
         # Prepare candlestick pattern analysis
         candlesticks = []
@@ -141,3 +131,76 @@ def get_candles(request, ticker, timeframe, lookback):
 
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=500)
+    
+@csrf_exempt
+@require_http_methods(["GET"])
+def get_json_list(request, index, interval, period):
+    """
+    Returns list of json files that fit index, period, and interval
+    """
+    try:
+        # Define the local file path (modify this to match your actual JSON file location)
+    
+
+        # Get the directory of the current file (views.py)
+        current_dir = os.path.dirname(__file__)
+
+        # local
+        # base_dir = os.path.abspath(os.path.join(current_dir, "../../"))
+
+        # production
+        base_dir = os.path.abspath(os.path.join(current_dir, "../../testProj3"))
+
+
+        # Construct the full path to the JSON file
+        target_dir = os.path.join(base_dir, "scans/", index + "." + interval + "." + period +"/")
+
+        print(target_dir)
+
+        # Ensure the directory exists
+        if not os.path.exists(target_dir):
+            return JsonResponse({"error": "Directory not found"}, status=404)
+
+        # Get all JSON files in the directory
+        json_files = [f for f in os.listdir(target_dir) if f.endswith(".json")]
+
+        # Return the list as a JSON response
+        return JsonResponse({"json_files": json_files}, safe=False, status=200)
+
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=500)
+    
+@csrf_exempt
+@require_http_methods(["GET"])
+def get_json_file(request, index, interval, period, filename):
+    """
+    Reads and returns the JSON content from a specific file.
+    """
+    try:
+        # Get the directory of the current file (views.py)
+        current_dir = os.path.dirname(__file__)
+
+        # Move two directories up
+        # local
+        # base_dir = os.path.abspath(os.path.join(current_dir, "../../"))
+
+        # production
+        base_dir = os.path.abspath(os.path.join(current_dir, "../../testProj3"))        
+
+        # Construct the full path to the JSON file
+        json_file_path = os.path.join(base_dir, "scans", index + "." + interval + "." + period, filename)
+
+        # Ensure the file exists
+        if not os.path.exists(json_file_path):
+            return JsonResponse({"error": "File not found"}, status=404)
+
+        # Open and read the JSON file
+        with open(json_file_path, "r", encoding="utf-8") as json_file:
+            data = json.load(json_file)
+
+        # Return the JSON response
+        return JsonResponse(data, safe=False, status=200)
+
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=500)
+
