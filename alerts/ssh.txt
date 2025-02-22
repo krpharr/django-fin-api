@@ -21,3 +21,4 @@ gcloud compute scp  instance-20250213-165846:testProj3/scans/sp500.1d.1mo/*.json
 gcloud compute scp  instance-20250213-165846:testProj3/scans/sp500.1wk.3mo/*.json C:\Users\bassw\git-repository\testproj3\scans\sp500.1wk.3mo\ --zone=us-east4-a
 gcloud compute scp  instance-20250213-165846:testProj3/scans/sp500.1mo.6mo/*.json C:\Users\bassw\git-repository\testproj3\scans\sp500.1mo.6mo\ --zone=us-east4-a
 
+gcloud compute scp  instance-20250213-165846:django_project/myapi/settings.py C:\Users\bassw\git-repository\testproj3\stock_alerts\stock_alerts\ --zone=us-east4-a
