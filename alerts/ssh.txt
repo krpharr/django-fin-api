@@ -7,3 +7,17 @@ nohup python manage.py runserver 0.0.0.0:8000 &
 gcloud compute scp  C:\Users\bassw\git-repository\testproj3\stock_alerts\fin\*.py instance-20250213-165846:django_project/fin/ --zone=us-east4-a
 
 gcloud compute scp  C:\Users\bassw\git-repository\testproj3\stock_alerts\fin\views.py instance-20250213-165846:django_project/fin/ --zone=us-east4-a
+
+
+gcloud compute scp  instance-20250213-165846:testProj3/scans/mypicks.1d.1mo/*.json C:\Users\bassw\git-repository\testproj3\scans\mypicks.1d.1mo\ --zone=us-east4-a
+gcloud compute scp  instance-20250213-165846:testProj3/scans/mypicks.1wk.3mo/*.json C:\Users\bassw\git-repository\testproj3\scans\mypicks.1wk.3mo\ --zone=us-east4-a
+gcloud compute scp  instance-20250213-165846:testProj3/scans/mypicks.1mo.6mo/*.json C:\Users\bassw\git-repository\testproj3\scans\mypicks.1mo.6mo\ --zone=us-east4-a
+
+gcloud compute scp  instance-20250213-165846:testProj3/scans/etf.1d.1mo/*.json C:\Users\bassw\git-repository\testproj3\scans\etf.1d.1mo\ --zone=us-east4-a
+gcloud compute scp  instance-20250213-165846:testProj3/scans/etf.1wk.3mo/*.json C:\Users\bassw\git-repository\testproj3\scans\etf.1wk.3mo\ --zone=us-east4-a
+gcloud compute scp  instance-20250213-165846:testProj3/scans/etf.1mo.6mo/*.json C:\Users\bassw\git-repository\testproj3\scans\etf.1mo.6mo\ --zone=us-east4-a
+
+gcloud compute scp  instance-20250213-165846:testProj3/scans/sp500.1d.1mo/*.json C:\Users\bassw\git-repository\testproj3\scans\sp500.1d.1mo\ --zone=us-east4-a
+gcloud compute scp  instance-20250213-165846:testProj3/scans/sp500.1wk.3mo/*.json C:\Users\bassw\git-repository\testproj3\scans\sp500.1wk.3mo\ --zone=us-east4-a
+gcloud compute scp  instance-20250213-165846:testProj3/scans/sp500.1mo.6mo/*.json C:\Users\bassw\git-repository\testproj3\scans\sp500.1mo.6mo\ --zone=us-east4-a
+

@@ -84,7 +84,7 @@ class Engulfing(Pattern):
     
 class EveningStar(Pattern):
     def __init__(self):
-        super().__init__("Evening Star", 0, 3, 2)
+        super().__init__("Evening Star", 0, 3, 1)
     
     def seek(self, candlesticks):
         matches = []
@@ -93,22 +93,22 @@ class EveningStar(Pattern):
             a = candlesticks[i]
             b = candlesticks[i+1]
             c = candlesticks[i+2]
-            # if a.trend == 1 and c.trend == 0:
-            #     if b.bodybottom > a.bodytop:
-            #       if c.open < b.bodybottom:
-            #           #check b bodysize to see if its small
-            #           if b.bodysize <= a.bodysize / 8:
-            #               # does the body of c penetrate deep into body of a 
-            #               if c.bodybottom < a.bodytop:
-            #                   matches.append([a,b,c])
-            if a.trend == 0 and c.trend == 1:
-                if b.bodytop < a.bodybottom:
-                  if c.open > b.bodytop:
+            if a.trend == 1 and c.trend == 0:
+                if b.bodybottom > a.bodytop:
+                  if c.open < b.bodybottom:
                       #check b bodysize to see if its small
                       if b.bodysize <= a.bodysize / 8:
                           # does the body of c penetrate deep into body of a 
-                          if c.bodytop > a.bodybottom:
+                          if c.bodybottom < a.bodytop:
                               matches.append([a,b,c])
+            # if a.trend == 0 and c.trend == 1:
+            #     if b.bodytop < a.bodybottom:
+            #       if c.open > b.bodytop:
+            #           #check b bodysize to see if its small
+            #           if b.bodysize <= a.bodysize / 8:
+            #               # does the body of c penetrate deep into body of a 
+            #               if c.bodytop > a.bodybottom:
+            #                   matches.append([a,b,c])
 
 
         return matches
@@ -132,7 +132,7 @@ class MorningStar(Pattern):
             b = candlesticks[i+1]
             c = candlesticks[i+2]
 
-            if a.period_trend == 'down' and c.trend == 1:
+            if a.trend == 0 and c.trend == 1:
                 if b.bodytop < a.bodybottom:
                   if c.open > b.bodytop:
                       #check b bodysize to see if its small
@@ -262,7 +262,7 @@ class Hammer(Pattern):
 
 class InvertedHammer(Pattern):
     def __init__(self):
-        super().__init__("Inverted Hammer", 1, 2, 2)
+        super().__init__("Inverted Hammer", 1, 2, 1)
 
     def seek(self, candlesticks):
         matches = []
@@ -287,7 +287,7 @@ class InvertedHammer(Pattern):
         f = self.seek(candlesticks)
         matches = []
         for d in f:
-            matches.append(["Inverted Hammer Bullish ", d[0].timestamp, 1])
+            matches.append(["Inverted Hammer Confirmed Bullish ", d[1].timestamp, 1])
         return matches    
 
 class TwoCrows(Pattern):
@@ -368,29 +368,27 @@ class UpsideGapTwoCrows(Pattern):
     
 class ThreeWhiteSolders(Pattern):
     def __init__(self):
-        super().__init__("Three White Solders", 1, 4, 1)
+        super().__init__("Three White Solders", 1, 3, 1)
     
     def seek(self, candlesticks):
         matches = []
         average_body_size = Candlestick.get_average_bodysize(self, candlesticks)
 
         bottoms = Candlestick.get_bottoms(self, candlesticks)
-
+      
         for i in range(0, len(candlesticks)-(self.window-1)):
-            l = candlesticks[i]
-            a = candlesticks[i+1]
-            b = candlesticks[i+2]
-            c = candlesticks[i+3]
+            a = candlesticks[i]
+            b = candlesticks[i+1]
+            c = candlesticks[i+2]
 
-            if Candlestick.isIn(self, l, bottoms):
-              if a.trend == 1 and b.trend == 1 and c.trend == 1:
-                  if a.open < b.open and b.open < c.open:
-                      if a.bodysize >= average_body_size * 0.66 and b.bodysize >= average_body_size * 0.66 and c.bodysize >= average_body_size * 0.66:
-                          if a.wick < a.bodysize * 0.4 and b.wick < b.bodysize * 0.4 and c.wick < c.bodysize * 0.4:
-                              if a.shadow < a.bodysize * 0.4 and b.shadow < b.bodysize * 0.4 and c.shadow < c.bodysize * 0.4:
-                                  if b.open >= a.close - (a.bodysize * 0.5) and b.open <= a.close:
-                                      if c.open >= b.close - (a.bodysize * 0.5) and c.open <= b.close:
-                                          matches.append([a, b, c])                             
+            if a.trend == 1 and b.trend == 1 and c.trend == 1:
+                if a.open < b.open and b.open < c.open:
+                    if a.bodysize >= average_body_size * 0.66 and b.bodysize >= average_body_size * 0.66 and c.bodysize >= average_body_size * 0.66:
+                        if a.wick < a.bodysize * 0.4 and b.wick < b.bodysize * 0.4 and c.wick < c.bodysize * 0.4:
+                            if a.shadow < a.bodysize * 0.4 and b.shadow < b.bodysize * 0.4 and c.shadow < c.bodysize * 0.4:
+                                if b.open >= a.close - (a.bodysize * 0.5) and b.open <= a.close:
+                                    if c.open >= b.close - (a.bodysize * 0.5) and c.open <= b.close:
+                                        matches.append([a, b, c])                     
 
         return matches
 
@@ -985,7 +983,7 @@ class Breakaway(Pattern):
     
 class AdvanceBlock(Pattern):
     def __init__(self):
-        super().__init__("Advance Block", 0, 3, 3)
+        super().__init__("Advance Block", 0, 3, 1)
 
     def seek(self, candlesticks):
         matches = []
@@ -1090,7 +1088,7 @@ class StickSandwich(Pattern):
 
 class TasukiGap(Pattern):
     def __init__(self):
-        super().__init__("Tasuki Gap", 1, 3, 3)
+        super().__init__("Tasuki Gap", 1, 3, 1)
 
     def seek(self, candlesticks):
         matches = []

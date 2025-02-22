@@ -146,10 +146,10 @@ def get_json_list(request, index, interval, period):
         current_dir = os.path.dirname(__file__)
 
         # local
-        # base_dir = os.path.abspath(os.path.join(current_dir, "../../"))
+        base_dir = os.path.abspath(os.path.join(current_dir, "../../"))
 
         # production
-        base_dir = os.path.abspath(os.path.join(current_dir, "../../testProj3"))
+        # base_dir = os.path.abspath(os.path.join(current_dir, "../../testProj3"))
 
 
         # Construct the full path to the JSON file
@@ -182,10 +182,10 @@ def get_json_file(request, index, interval, period, filename):
 
         # Move two directories up
         # local
-        # base_dir = os.path.abspath(os.path.join(current_dir, "../../"))
+        base_dir = os.path.abspath(os.path.join(current_dir, "../../"))
 
         # production
-        base_dir = os.path.abspath(os.path.join(current_dir, "../../testProj3"))        
+        # base_dir = os.path.abspath(os.path.join(current_dir, "../../testProj3"))        
 
         # Construct the full path to the JSON file
         json_file_path = os.path.join(base_dir, "scans", index + "." + interval + "." + period, filename)
