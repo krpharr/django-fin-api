@@ -37,6 +37,30 @@ def add_alert(request):
         return JsonResponse({"error": str(e)}, status=400)
 
 @csrf_exempt
+@require_http_methods(["PUT"])
+def update_alert(request, alert_id):
+    try:
+        alert = Alert.objects.get(id=alert_id)
+        data = json.loads(request.body)
+        
+        # Update the fields if they are provided in the request body
+        alert.ticker = data.get("ticker", alert.ticker)
+        alert.price_type = data.get("price_type", alert.price_type)
+        alert.operator = data.get("operator", alert.operator)
+        alert.threshold = data.get("threshold", alert.threshold)
+        alert.trend = data.get("trend", alert.trend)
+        alert.level = data.get("level", alert.level)
+        alert.alert_text = data.get("alert_text", alert.alert_text)
+        
+        alert.save()
+        return JsonResponse({"message": "Alert updated", "id": alert.id}, status=200)
+    except Alert.DoesNotExist:
+        return JsonResponse({"error": "Alert not found"}, status=404)
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=400)
+
+
+@csrf_exempt
 @require_http_methods(["DELETE"])
 def delete_alert(request, alert_id):
     try:

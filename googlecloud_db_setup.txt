@@ -56,3 +56,23 @@ DATABASES = {
 gcloud run services update django-app --set-env-vars=DB_NAME=stock-alerts-db,DB_USER=django_user,DB_PASSWORD="dbsa-psswrd-0345" --region us-east4
 
 gcloud projects add-iam-policy-binding fresh-generator-450702-r3 --member=serviceAccount:208102352039-compute@developer.gserviceaccount.com --role=roles/cloudsql.client
+
+
+
+$headers = @{
+    "Content-Type" = "application/json"
+}
+
+$data = '{
+  "ticker": "AAPL",
+  "price_type": "low",
+  "operator": ">=",
+  "threshold": 220,
+  "trend": "Bullish",
+  "level": 2,
+  "alert_text": "AAPL is on the rise!"
+}'
+
+Invoke-RestMethod -Uri "http://127.0.0.1:8000/api/alerts/update/51/" -Method PUT -Headers $headers -Body $data
+
+
