@@ -203,4 +203,18 @@ def get_json_file(request, index, interval, period, filename):
 
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=500)
+    
+@csrf_exempt
+@require_http_methods(["GET"])
+def get_news(request, index):
+    try:
+        dat = yf.Ticker(index)
+        news = dat.get_news()
+        if news.count == 0:
+            return JsonResponse({"error": "No new found."}, status=404)
 
+        # Return the JSON response
+        return JsonResponse(news, safe=False, status=200)
+
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=500)
