@@ -401,7 +401,7 @@ class ThreeWhiteSolders(Pattern):
     
 class ThreeBlackCrows(Pattern):
     def __init__(self):
-        super().__init__("Three Black Crows", 0, 4, 4)
+        super().__init__("Three Black Crows", 0, 4, 1)
     
     def seek(self, candlesticks):
         matches = []
@@ -431,7 +431,7 @@ class ThreeBlackCrows(Pattern):
         f = self.seek(candlesticks)
         matches = []
         for d in f:
-            matches.append(["Three Black Crows Bearish", d[0].timestamp, 0])
+            matches.append(["Three Black Crows Bearish", d[2].timestamp, 0])
         return matches
             
 class PiercingLine(Pattern):
@@ -995,8 +995,8 @@ class AdvanceBlock(Pattern):
             c = candlesticks[i+2]
 
             if a.trend == 1 and b.trend == 1 and c.trend == 1:
-                if b.price_in_range(b.open, a) and b.close > a.close and b.wick > a.wick and b.bodysize < a.bodysize: 
-                    if c.price_in_range(c.open, b) and c.close > b.close and c.wick > b.wick and c.bodysize < b.bodysize:
+                if b.price_in_body(b.open, a) and b.close > a.close and b.wick > a.wick and b.bodysize < a.bodysize: 
+                    if c.price_in_body(c.open, b) and c.close > b.close and c.wick > b.wick and c.bodysize < b.bodysize:
                         matches.append([a, b, c])
 
         return matches
@@ -1011,7 +1011,7 @@ class AdvanceBlock(Pattern):
 
 class Deliberation(Pattern):
     def __init__(self):
-        super().__init__("Deliberation", 0, 3, 3)
+        super().__init__("Deliberation", 0, 3, 1)
 
     def seek(self, candlesticks):
         matches = []

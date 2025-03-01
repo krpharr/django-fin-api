@@ -30,11 +30,11 @@ class Candlestick:
         end_date = current_date.strftime('%Y-%m-%d')
         start_date = current_date - datetime.timedelta(days=num_days)
 
-        stock = yf.download(ticker, 
-                            start=start_date, 
+        dat = yf.Ticker(ticker)
+        stock = dat.history(start=start_date, 
                             end=end_date, 
-                            progress=False,
-        )
+                            progress=False)
+        stock = stock.sort_index()  # Ensure data is sorted by date
 
         candlesticks = []
         for i in stock.index:

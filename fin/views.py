@@ -218,3 +218,25 @@ def get_news(request, index):
 
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=500)
+    
+@csrf_exempt
+@require_http_methods(["GET"])
+def get_history(request, index, start_date, end_date, interval):
+    try:
+        dat = yf.Ticker(index)
+        hist = dat.history(start=start_date, end=end_date, interval=interval)
+        hist = hist.sort_index() 
+
+        if hist.empty:  # Corrected check for empty dataframe
+            return JsonResponse({"error": "No history found."}, status=404)
+
+        hist.reset_index(inplace=True)
+        hist_json = hist.to_json(orient="records", date_format="iso")
+
+        # Convert JSON string to Python object
+        hist_data = json.loads(hist_json)
+
+        return JsonResponse(hist_data, safe=False, status=200)
+
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=500)
