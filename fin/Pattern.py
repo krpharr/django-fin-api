@@ -101,6 +101,7 @@ class EveningStar(Pattern):
                           # does the body of c penetrate deep into body of a 
                           if c.bodybottom < a.bodytop:
                               matches.append([a,b,c])
+
             # if a.trend == 0 and c.trend == 1:
             #     if b.bodytop < a.bodybottom:
             #       if c.open > b.bodytop:
@@ -140,6 +141,15 @@ class MorningStar(Pattern):
                           # does the body of c penetrate deep into body of a 
                           if c.bodytop > a.bodybottom:
                               matches.append([a,b,c])
+
+            # if a.trend == 1 and c.trend == 0:             
+            #     if b.bodybottom > a.bodytop:
+            #         if c.open < b.bodybottom:
+            #             #check b bodysize to see if its small
+            #             if b.bodysize <= a.bodysize / 8:
+            #                 # does the body of c penetrate deep into body of a 
+            #                 if c.bodybottom < a.bodytop:
+            #                     matches.append([a,b,c])
 
         return matches
 

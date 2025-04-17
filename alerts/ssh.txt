@@ -26,3 +26,8 @@ gcloud compute scp  instance-20250213-165846:django_project/myapi/settings.py C:
 
 gcloud compute scp  C:\Users\bassw\git-repository\testproj3\stock_alerts\alerts\views.py instance-20250213-165846:django_project/alerts/ --zone=us-east4-a
 gcloud compute scp  C:\Users\bassw\git-repository\testproj3\stock_alerts\alerts\urls.py instance-20250213-165846:django_project/alerts/ --zone=us-east4-a
+
+multiples of Patterns.py need to  be uploaded 
+gcloud compute scp  C:\Users\bassw\git-repository\testproj3\stock_alerts\fin\Pattern.py instance-20250213-165846:django_project/fin/ --zone=us-east4-a
+gcloud compute scp  C:\Users\bassw\git-repository\testproj3\stock_alerts\fin\Pattern.py instance-20250213-165846:testProj3/ --zone=us-east4-a
+cp C:\Users\bassw\git-repository\testproj3\stock_alerts\fin\Pattern.py C:\Users\bassw\git-repository\testproj3\
