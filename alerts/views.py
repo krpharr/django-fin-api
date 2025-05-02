@@ -13,7 +13,7 @@ def get_alerts(request):
     alerts = Alert.objects.all().order_by("ticker")
 
     for alert in alerts:
-        alert.latest_price = get_latest_price(alert.ticker, period, alert.price_type)  # ✅ Now it works
+        alert.latest_price = get_latest_price(alert.ticker, period, alert.value_type)  # ✅ Now it works
 
     return JsonResponse(list(alerts.values()), safe=False)
 
@@ -45,7 +45,7 @@ def update_alert(request, alert_id):
         
         # Update the fields if they are provided in the request body
         alert.ticker = data.get("ticker", alert.ticker)
-        alert.price_type = data.get("price_type", alert.price_type)
+        alert.value_type = data.get("price_type", alert.value_type)
         alert.operator = data.get("operator", alert.operator)
         alert.threshold = data.get("threshold", alert.threshold)
         alert.trend = data.get("trend", alert.trend)
@@ -85,7 +85,7 @@ def get_triggered_alerts(request):
                 triggered_alerts.append({
                     "id": alert.id,
                     "ticker": alert.ticker,
-                    "price_type": alert.price_type,
+                    "price_type": alert.value_type,
                     "operator": alert.operator,
                     "threshold": alert.threshold,
                     "current_price": latest_price,

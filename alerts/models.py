@@ -13,7 +13,7 @@ class Alert(models.Model):
     ]
 
     ticker = models.CharField(max_length=10)
-    price_type = models.CharField(max_length=10, choices=[("open", "Open"), ("close", "Close"), ("high", "High"), ("low", "Low")])
+    value_type = models.CharField(max_length=10, choices=[("open", "Open"), ("close", "Close"), ("high", "High"), ("low", "Low"), ("rsi", "RSI")])
     operator = models.CharField(max_length=2, choices=[(">=", "≥"), ("<=", "≤")])
     threshold = models.FloatField()
     alert_text = models.TextField(blank=True, null=True)
