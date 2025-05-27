@@ -133,6 +133,36 @@ def get_candles(request, ticker, timeframe, lookback):
 
         stock_json = calc_candles(stock)
 
+        print(stock_json)
+
+        return JsonResponse(json.loads(stock_json), safe=False, status=200)
+
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=500)
+    
+@csrf_exempt
+@require_http_methods(["GET"])
+def get_custom_index_candles(request, tickers, timeframe, lookback):
+    """
+    build a custom trading index of tickers and return candles
+    """
+    tickers = tickers.split(",")
+    buffer = []
+
+    try:
+        for ticker in tickers:
+            dat = yf.Ticker(ticker)
+            stock = dat.history(interval=timeframe, period=lookback)
+            stock = stock.sort_index()  # Ensure data is sorted by date
+            # Ensure data is available
+            if stock.empty:
+                return JsonResponse({"error": "No data found for the given parameters"}, status=404)
+            buffer.append(stock)
+
+        avg_stock = sum(buffer) / len(buffer)
+        stock_json = calc_candles(avg_stock)
+           
+
         return JsonResponse(json.loads(stock_json), safe=False, status=200)
 
     except Exception as e:

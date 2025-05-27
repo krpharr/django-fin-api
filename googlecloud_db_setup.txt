@@ -76,3 +76,148 @@ $data = '{
 Invoke-RestMethod -Uri "http://127.0.0.1:8000/api/alerts/update/51/" -Method PUT -Headers $headers -Body $data
 
 
+[
+    {
+        "Date":"2024-05-02T04:00:00.000Z",
+        "Open":7.0300002098,
+        "High":7.1100001335,
+        "Low":6.8600001335,
+        "Close":6.9899997711,
+        "Volume":45473400,
+        "Dividends":0.0,
+        "Stock Splits":0.0,
+        "Patterns":"Doji Bearish"
+    },
+    {
+        "Date":"2024-05-03T04:00:00.000Z",
+        "Open":7.1300001144,
+        "High":7.2399997711,
+        "Low":6.8800001144,
+        "Close":6.9600000381,
+        "Volume":56618000,
+        "Dividends":0.0,
+        "Stock Splits":0.0,
+        "Patterns":""
+    },
+    {
+        "Date":"2024-05-06T04:00:00.000Z",
+        "Open":7.0549998283,
+        "High":7.2699999809,
+        "Low":7.0300002098,
+        "Close":7.1599998474,
+        "Volume":50016600,
+        "Dividends":0.0,
+        "Stock Splits":0.0,
+        "Patterns":""
+    },
+    {
+        "Date":"2024-05-07T04:00:00.000Z",
+        "Open":7.1199998856,
+        "High":7.1900000572,
+        "Low":7.0300002098,
+        "Close":7.0599999428,
+        "Volume":31025600,
+        "Dividends":0.0,
+        "Stock Splits":0.0,
+        "Patterns":""
+    },
+    {
+        "Date":"2024-05-08T04:00:00.000Z",
+        "Open":6.9800000191,
+        "High":7.0850000381,
+        "Low":6.9299998283,
+        "Close":7.0500001907,
+        "Volume":29637600,
+        "Dividends":0.0,
+        "Stock Splits":0.0,
+        "Patterns":""
+    },
+    {
+        "Date":"2024-05-09T04:00:00.000Z",
+        "Open":7.0799999237,
+        "High":7.1300001144,
+        "Low":6.9899997711,
+        "Close":7.0599999428,
+        "Volume":22463500,
+        "Dividends":0.0,
+        "Stock Splits":0.0,
+        "Patterns":""
+    },
+    {
+        "Date":"2024-05-10T04:00:00.000Z",
+        "Open":7.0500001907,
+        "High":7.0900001526,
+        "Low":6.9200000763,
+        "Close":6.9400000572,
+        "Volume":29080800,
+        "Dividends":0.0,
+        "Stock Splits":0.0,
+        "Patterns":""
+    },
+    {
+        "Date":"2024-05-13T04:00:00.000Z",
+        "Open":7.0300002098,
+        "High":7.3200001717,
+        "Low":7.0,
+        "Close":7.1100001335,
+        "Volume":55264000,
+        "Dividends":0.0,
+        "Stock Splits":0.0,
+        "Patterns":""
+    },
+    {
+        "Date":"2024-05-14T04:00:00.000Z",
+        "Open":7.2100000381,
+        "High":7.6399998665,
+        "Low":7.1999998093,
+        "Close":7.4699997902,
+        "Volume":74991900,
+        "Dividends":0.0,
+        "Stock Splits":0.0,
+        "Patterns":""
+    },
+    {
+        "Date":"2024-05-15T04:00:00.000Z",
+        "Open":7.6300001144,
+        "High":7.6300001144,
+        "Low":7.2100000381,
+        "Close":7.2699999809,
+        "Volume":35185400,
+        "Dividends":0.0,
+        "Stock Splits":0.0,
+        "Patterns":"Marubozu Open Bearish, Tweezer Tops Bearish"
+    },
+    {
+        "Date":"2024-05-16T04:00:00.000Z",
+        "Open":7.2300000191,
+        "High":7.3000001907,
+        "Low":7.1100001335,
+        "Close":7.1199998856,
+        "Volume":28905000,
+        "Dividends":0.0,
+        "Stock Splits":0.0,
+        "Patterns":""
+    },
+    {
+        "Date":"2024-05-17T04:00:00.000Z",
+        "Open":7.1500000954,
+        "High":7.4200000763,
+        "Low":7.1199998856,
+        "Close":7.2800002098,
+        "Volume":36606000,
+        "Dividends":0.0,
+        "Stock Splits":0.0,
+        "Patterns":""
+    },
+    {
+        "Date":"2024-05-20T04:00:00.000Z",
+        "Open":7.25,
+        "High":7.2899999619,
+        "Low":7.1700000763,
+        "Close":7.1900000572,
+        "Volume":20605800,
+        "Dividends":0.0,
+        "Stock Splits":0.0,
+        "Patterns":""
+    }
+]
